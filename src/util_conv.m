@@ -5,9 +5,9 @@ function result = util_conv(input, kernel)
     if (size(input, 3) == 3)
         result = zeros(size(input));
         for i = 1:3
-            result(:, :, i) = conv2(input(:, :, i), kernel, 'same');
+            result(:, :, i) = imfilter(input(:, :, i), kernel, 'replicate');
         end
     else
-        result = conv2(input, kernel, 'same');
+        result = imfilter(input, kernel, 'replicate');
     end
 end
