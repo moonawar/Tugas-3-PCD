@@ -6,6 +6,14 @@ function outputImage = detectLinesUsingHough(I)
         grayImage = I;
     end
 
+    % Duplikasi citra input awal
+    outputImage = I;
+
+    % Cek apakah citra yang diduplikasi adalah citra berwarna atau grayscale
+    if size(outputImage, 3) == 1
+        outputImage = cat(3, outputImage, outputImage, outputImage); % Convert to RGB
+    end
+
     % Deteksi tepi dengan canny library
     edges = edge(grayImage, 'canny');
 
@@ -17,14 +25,6 @@ function outputImage = detectLinesUsingHough(I)
 
     % Cari garis 
     lines = houghlines(edges, theta, rho, peaks, 'FillGap', 20, 'MinLength', 30);
-
-    % Duplikasi citra input awal
-    outputImage = I;
-
-    % Cek apakah citra yang diduplikasi adalah citra berwarna atau grayscale
-    if size(outputImage, 3) == 1
-        outputImage = cat(3, outputImage, outputImage, outputImage); % Convert to RGB
-    end
 
     % Looping untuk menggambarkan garis yang ditemukan pada gambar
     for k = 1:length(lines)

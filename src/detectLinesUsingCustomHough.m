@@ -6,6 +6,14 @@ function outputImage = detectLinesUsingCustomHough(I)
         grayImage = I;
     end
 
+    % Menggambar garis yang terdeteksi
+    outputImage = I;
+
+    % Periksa apakah citra grayscale atau RGB
+    if size(outputImage, 3) == 1
+        outputImage = cat(3, outputImage, outputImage, outputImage); % Konversi ke RGB
+    end
+
     % Deteksi tepi menggunakan metode Canny
     edges = edge(grayImage, 'canny');
 
@@ -53,14 +61,6 @@ function outputImage = detectLinesUsingCustomHough(I)
     % Menemukan segmen tepi yang terhubung
     labeledEdges = bwlabel(edges);
     edgeProps = regionprops(labeledEdges, 'PixelList');
-    
-    % Menggambar garis yang terdeteksi
-    outputImage = I;
-
-    % Periksa apakah citra grayscale atau RGB
-    if size(outputImage, 3) == 1
-        outputImage = cat(3, outputImage, outputImage, outputImage); % Konversi ke RGB
-    end
 
     % Mengonversi puncak ke (rho, theta) dan menggambar garis
     for k = 1:size(peaks, 1)
