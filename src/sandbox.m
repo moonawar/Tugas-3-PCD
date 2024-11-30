@@ -1,17 +1,11 @@
-input = imread('../images/canny.png');
-input = rgb2gray(input);
-input = im2double(input);
+input = imread('../images/car.jpg');
+gray = rgb2gray(input);
+gray = im2double(gray);
 
-% output = edge_sobel(input, 2);
-% figure;
-% imshow(output);
+figure, imshow(input), title("Input Image");
 
-% output = edge_prewitt(input);
-% figure;
-% imshow(output);
+canny_edge = edge(gray, "canny");
+figure, imshow(canny_edge), title("Output Canny");
 
-output = edge(input, "canny");
-figure, imshow(output), title("Output Canny Built-in");
-
-output = edge_canny(input, 1.4, 0.4);
-figure, imshow(output), title("Output Canny");
+canny_segmented = segment_object(input, canny_edge);
+figure, imshow(canny_segmented), title("Output Object Segmentation with Canny");

@@ -1,7 +1,12 @@
-% input is an image that we want to convolve
-% kernel is a 2D array that we want to convolve with
-% result is an image that is the result of the convolution
+% util_conv - Melakukan konvolusi citra dengan kernel tertentu
+
+% parameter:
+%   input: citra yang akan dikonvolusi
+%   kernel: kernel yang akan digunakan untuk konvolusi
+% return
+%   result: citra hasil konvolusi
 function result = util_conv(input, kernel) 
+    % menggunakan built-in imfilter untuk melakukan konvolusi
     if (size(input, 3) == 3)
         result = zeros(size(input));
         for i = 1:3
